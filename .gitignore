@@ -1,3 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/*
 /exercise_01/node_modules
+/api/node_modules
