@@ -1,7 +1,9 @@
-import './public/css/style.min.css';
+// import './public/css/style.min.css';
 import React from 'react';
 import ReactDom from 'react-dom';
 
 import App from './public/js/hello';
-const rootElement = document.getElementById('react');
-ReactDom.render(<App />, rootElement);
+import Routes from './public/js/Routes';
+
+
+ReactDom.render(Routes, document.getElementById('react'));
