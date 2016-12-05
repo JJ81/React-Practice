@@ -1,9 +1,13 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+//var ReactDOM = require('react-dom');
 var EmailField = require('./EmailField.jsx');
 var PasswordField = require('./PasswordField.jsx');
 
 var FrmWrapper = React.createClass({
+  mouseReset: function () {},
+  evtReset: function(e){
+    // asdfasdfasdf
+  },
   onSubmit: function (e) {
     e.preventDefault();
     var _email = this.refs.emailInput.state.valid;
@@ -25,6 +29,7 @@ var FrmWrapper = React.createClass({
               <EmailField ref="emailInput" />
               <PasswordField ref="passInput" />
               <button className="btn btn-lg btn-success btn-block">Login</button>
+              <button className="btn btn_reset" onMouseOver={this.mouseReset} onClick={this.evtReset}>RESET</button>
             </form>
           </div>
         </div>
