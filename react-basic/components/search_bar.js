@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-// { Component} => const Component = React.Component;
+// info. { Component} => const Component = React.Component;
 
 class SearchBar extends Component {
+  constructor(props){
+    super(props);
+    this.state = { term : ''};
+  }
+
   render() {
-    return <input placeholder="insert words" />;
+    return (
+      <div>
+        <input
+          onChange={event => this.setState({term : event.target.value})}
+          value={this.state.term}
+          placeholder="insert words" />
+      </div>
+    );
   }
 }
-
-// const SearchBar = () => {
-//   return <input placeholder="insert words" />;
-// };
 
 export default SearchBar;
