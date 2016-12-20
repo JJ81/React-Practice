@@ -23,6 +23,7 @@ class App extends Component {
     };
 
     YTSearch({key: API_KEY, term: 'twice'}, (videos) => {
+      console.info(videos);
       this.setState({
         videos : videos,
         selectedVideo : videos[0]

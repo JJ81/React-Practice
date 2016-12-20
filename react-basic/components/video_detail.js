@@ -8,7 +8,8 @@ class VideoDetail extends Component {
     }
 
     const videoId = this.props.video.id.videoId;
-    const url = 'https://www.youtube.com/embed/${videoId}';
+    //const url = 'https://www.youtube.com/embed/${videoId}';
+    const url = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
 
     return (
       <div className="video-detail col-md-8">
