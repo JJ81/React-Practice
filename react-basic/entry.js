@@ -8,6 +8,11 @@ import VideoDetail from './components/video_detail';
 // console.developers.google.com
 // npm install --save youtube-api-search
 
+// 스타일은 아래와 같이 연결해서 사용할 수 있다.
+import styles from './public/css/style.min.css';
+//import styles from './public/css/style.scss'; // <- 이와 같이는 사용할 수가 없다.
+
+
 const API_KEY = 'AIzaSyCw_fn9yB4zTqujwg7mU8kAwe20Qgtclq0';
 
 // test to call youtube api

@@ -1,7 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+// info(stylesheets) https://webpack.github.io/docs/stylesheets.html
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // https://gist.github.com/Couto/b29676dd1ab8714a818f
 // http://madole.xyz/using-webpack-to-set-up-polyfills-in-your-site/
 
@@ -30,7 +31,8 @@ module.exports = {
         loaders: [
             { // css로더를 사용하여 번들링한다.
               test: /\.css$/,
-              loader: 'style!css'
+              // loader: 'style!css'
+              loader: ExtractTextPlugin.extract("style-loader", "css-loader")
             },
             // ECMAScript 2015를 사용하기 위한 로더 설정
             {
@@ -50,8 +52,8 @@ module.exports = {
       new webpack.ProvidePlugin({
         'Promise': 'es6-promise' // Thanks Aaron (https://gist.github.com/Couto/b29676dd1ab8714a818f#gistcomment-1584602)
         ,'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-      })
-
+      }),
+      new ExtractTextPlugin("[name].css")
     ],
     devServer: {
       port : 9000,
