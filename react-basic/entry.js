@@ -4,7 +4,7 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
-
+import _ from 'lodash';
 // console.developers.google.com
 // npm install --save youtube-api-search
 
@@ -27,7 +27,11 @@ class App extends Component {
       selectedVideo : null
     };
 
-    YTSearch({key: API_KEY, term: 'twice'}, (videos) => {
+    this.videoSearch('twice');
+  }
+
+  videoSearch(term){
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       console.info(videos);
       this.setState({
         videos : videos,
@@ -36,10 +40,14 @@ class App extends Component {
     });
   }
 
+
   render(){
+    // term이라는 파라미터를 어떻게 넘겨서 받는거지?
+    const videoSearch = _.debounce((term) => {this.videoSearch(term);}, 500);
+
     return (
       <div className="container">
-        <SearchBar />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
           onVideoSelect={ (selectedVideo) => this.setState({selectedVideo})}
