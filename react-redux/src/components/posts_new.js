@@ -1,30 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
-// import { renderInput } from './inputField';
 
 class PostsNew extends Component {
-
-  // ??
   static contextTypes = {
-    router: React.PropTypes.object
+    router: PropTypes.object
   };
 
-
-  // helper function
-  // 위의 contextTypes 설정이 없으면 페이지 이동이 되지 않는다..
   onSubmit(props){
-    createPost(props, (err, result) => { // then을 사용하지 못하는 이유는??
-      // console.info(result); // TODO then으로 간단하게 promise를 사용하는 방법을 알아보자.
-      this.context.router.push('/');
-    });
-    // createPost(props).then(() => {
-    //   // blog post has been created, navigate the user to the index
-    //   // we navigate by calling this.context.router.push with the
-    //   // new path to navigate to.
+
+    console.log('createPost');
+    console.log(createPost);
+    console.log(this.props.createPost); // undefined
+
+    // createPost(props).then(()=>{
+    //   console.log('check create post');
+    // });
+
+    // this.props.createPost(props).then(()=>{
     //   this.context.router.push('/');
     // });
+
+    // createPost(props, (err, result) => {
+    //   // console.info(result);
+    //   this.context.router.push('/');
+    // });
+
+    createPost(props).then(() => {
+      this.context.router.push('/');
+    });
   }
 
   render() {
@@ -94,9 +99,11 @@ const renderTextarea = ({ input, label, type, meta: {touched, invalid, error }})
 );
 
 
-
 // connect : 1st argument is mapStateToProps, 2nd is masDispatchToProps
 // reduxForm : 1st is form config, 2nd is masStateToProps, 3rd is mapDispatchToProps
+
+
+
 
 export default reduxForm({
   form: 'PostsNewForm',
