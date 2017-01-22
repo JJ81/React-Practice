@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 
 class PostsNew extends Component {
   static contextTypes = {
@@ -9,25 +10,7 @@ class PostsNew extends Component {
   };
 
   onSubmit(props){
-
-    console.log('createPost');
-    console.log(createPost);
-    console.log(this.props.createPost); // undefined
-
-    // createPost(props).then(()=>{
-    //   console.log('check create post');
-    // });
-
-    // this.props.createPost(props).then(()=>{
-    //   this.context.router.push('/');
-    // });
-
-    // createPost(props, (err, result) => {
-    //   // console.info(result);
-    //   this.context.router.push('/');
-    // });
-
-    createPost(props).then(() => {
+    this.props.createPost(props).then(() => {
       this.context.router.push('/');
     });
   }
@@ -98,26 +81,10 @@ const renderTextarea = ({ input, label, type, meta: {touched, invalid, error }})
   </div>
 );
 
+const ComponentWithForm = reduxForm({
+  form : 'PostsNewForm',
+  fields : ['title', 'categories', 'content'],
+  validate
+})(PostsNew);
 
-// connect : 1st argument is mapStateToProps, 2nd is masDispatchToProps
-// reduxForm : 1st is form config, 2nd is masStateToProps, 3rd is mapDispatchToProps
-
-
-
-
-export default reduxForm({
-  form: 'PostsNewForm',
-  validate, // validation 등록
-  fields : ['title', 'categories', 'content']
-}, null, { createPost })(PostsNew);
-
-// user types somethig in ....record in on app like below
-// state === {
-//   form : {
-//     PostsNewForm: {
-//       title : '....',
-//       categories : '....',
-//       content: '....'
-//     }
-//   }
-// }
+export default connect(null, {createPost})(ComponentWithForm);
