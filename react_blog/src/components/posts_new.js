@@ -1,11 +1,25 @@
 // @ Component
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 
 
 class PostsNew extends Component {
+  // navigating on submit!
+  static contextTypes = {
+    router : PropTypes.object
+  };
+
+  // 폼을 전송할 때, action에 데이터를 전달하고 promise를 통해서 경로를 이동시킨다.
+  // 헌데 이 때 에러가 발생했을 경우 처리는 어떻게 할 수 있는가?
+  onSubmit(props){ // porps --> title, content, categories
+    this.props.createPost(props).then(() => {
+      // blog post has been created, navigate the user to the index
+      // we navigate by calling this.context.router.path with the new path to navigate to.
+      this.context.router.push('/');
+    });
+  };
 
   render (){
     const { fields: { title, categories, content }, handleSubmit } = this.props;
@@ -19,7 +33,7 @@ class PostsNew extends Component {
           <Link to="/" className="btn btn-info">Main</Link>
         </div>
 
-        <form onSubmit={handleSubmit(this.props.createPost)} className="form-blog">
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))} className="form-blog">
           <h3>Create A New Post</h3>
 
           <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
